@@ -1,3 +1,12 @@
+<!--
+	LEGACY DEV HEADER (modernized)
+	Project: lastbeforenamechange
+	File: README.md
+	Purpose: High-level project overview and developer quickstart.
+	Maintainer: dev-team@example.gov
+	Created: 2026-03-01
+-->
+
 # lastbeforenamechange — Static Site Starter
 
 A modern, accessible static-site starter built with **Vite + TypeScript**, **htmx**, **hyperscript**, and **Shoelace** web components — styled to match the [U.S. Web Design System (USWDS)](https://designsystem.digital.gov/components/overview/) component catalogue.
