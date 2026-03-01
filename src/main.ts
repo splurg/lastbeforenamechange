@@ -1,3 +1,16 @@
+/*
+	------------------------------------------------------------------
+	LEGACY DEV HEADER (modernized)
+	Project: lastbeforenamechange
+	File: src/main.ts
+	Purpose: Single shared runtime entry — register Shoelace, bootstrap htmx and hyperscript.
+	Maintainer: dev-team@example.gov
+	Created: 2026-03-01
+	Notes: When updating Shoelace imports keep `setBasePath` in sync with build asset copying (see `vite.config.ts`).
+	Accessibility: Ensure components expose proper aria attributes; prefer semantic markup first.
+	------------------------------------------------------------------
+*/
+
 /**
  * main.ts — entry point loaded by every page.
  *

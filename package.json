@@ -2,6 +2,7 @@
   "name": "lastbeforenamechange",
   "version": "0.1.0",
   "description": "Static site using Vite + TypeScript + htmx + hyperscript + Shoelace (USWDS-inspired)",
+  "x-dev-header": "PROJECT: lastbeforenamechange\nFILE: package.json\nPURPOSE: Package manifest (dev+prod deps and scripts)\nMAINTAINER: dev-team@example.gov\nCREATED: 2026-03-01\nNOTES: This field is informational and ignored by npm.",
   "type": "module",
   "scripts": {
     "dev": "vite",

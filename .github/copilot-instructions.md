@@ -1,3 +1,12 @@
+<!--
+  LEGACY DEV HEADER (modernized)
+  Project: lastbeforenamechange
+  File: .github/copilot-instructions.md
+  Purpose: Guidance for AI coding agents and contributors.
+  Maintainer: dev-team@example.gov
+  Created: 2026-03-01
+-->
+
 # Copilot Instructions for this repository
 
 ## Project shape and runtime model

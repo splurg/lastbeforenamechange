@@ -1,3 +1,12 @@
+/*
+  LEGACY DEV HEADER (modernized)
+  Project: lastbeforenamechange
+  File: tsconfig.json
+  Purpose: TypeScript compiler configuration (JSONC allowed)
+  Maintainer: dev-team@example.gov
+  Created: 2026-03-01
+*/
+
 {
   "compilerOptions": {
     "target": "ES2020",
