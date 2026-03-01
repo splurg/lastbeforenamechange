@@ -1,0 +1,229 @@
+<!doctype html>
+<!--
+  ------------------------------------------------------------------
+  LEGACY DEV HEADER (modernized)
+  Project: lastbeforenamechange
+  File: admin.html
+  Purpose: Admin panel — color-scheme picker that saves preferences to localStorage.
+  Maintainer: dev-team@example.gov
+  Created: 2026-03-01
+  Notes: Theme changes are applied via CSS custom properties on :root.
+         Preferences persist in localStorage under the key defined in src/theme.ts.
+  Accessibility: All interactive controls are keyboard-navigable; active theme is
+                 communicated to screen readers via aria-pressed and visible badge.
+  ------------------------------------------------------------------
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Site | Admin — Appearance</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="usa-skipnav">Skip to main content</a>
+
+    <!-- ===================== SITE HEADER ===================== -->
+    <header class="site-header">
+      <nav class="usa-navbar" aria-label="Primary navigation">
+        <div class="usa-navbar__inner">
+          <a href="/" class="usa-navbar__brand">
+            <sl-icon name="building-fill"></sl-icon>
+            <span>MyAgency.gov</span>
+          </a>
+          <button
+            class="usa-menu-btn"
+            aria-label="Open navigation menu"
+            _="on click toggle .usa-navbar__menu--open on #primary-nav"
+          >
+            <sl-icon name="list"></sl-icon>
+          </button>
+          <ul id="primary-nav" class="usa-nav__primary" role="list">
+            <li><a href="/" class="usa-nav__link">Home</a></li>
+            <li><a href="/components.html" class="usa-nav__link">Components</a></li>
+            <li><a href="/forms.html" class="usa-nav__link">Forms Demo</a></li>
+            <li><a href="/kitchen-sink.html" class="usa-nav__link">Kitchen Sink</a></li>
+            <li><a href="/admin.html" class="usa-nav__link usa-current">
+              <sl-icon name="gear-fill" style="vertical-align: -0.15em;"></sl-icon>
+              Admin
+            </a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ===================== MAIN ===================== -->
+    <main id="main-content">
+      <div class="grid-container" style="padding-top: 2rem; padding-bottom: 4rem;">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb">
+          <ol class="usa-breadcrumb__list">
+            <li class="usa-breadcrumb__list-item">
+              <a href="/" class="usa-breadcrumb__link">Home</a>
+            </li>
+            <li class="usa-breadcrumb__list-item" aria-current="page">Admin</li>
+          </ol>
+        </nav>
+
+        <h1 style="margin-top: 0.5rem;">
+          <sl-icon name="gear-fill" style="vertical-align: -0.1em; margin-right: 0.4rem;"></sl-icon>
+          Site Administration
+        </h1>
+        <p class="usa-intro">
+          Manage site-wide appearance settings. Preferences are saved locally in
+          your browser and apply across every page on this device.
+        </p>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== COLOR SCHEME ===== -->
+        <section class="component-section" id="color-scheme" aria-labelledby="scheme-heading">
+          <h2 id="scheme-heading">Color Scheme</h2>
+          <p>
+            Choose from the government-approved palettes below. Each scheme keeps
+            the site fully accessible (WCAG AA minimum) while reflecting different
+            agency or department visual identities.
+          </p>
+
+          <ul class="theme-grid" id="theme-grid" aria-label="Available color schemes">
+            <!-- Cards are injected by the module script below -->
+          </ul>
+
+          <!-- Success feedback -->
+          <div
+            id="save-feedback"
+            class="admin-save-feedback"
+            role="status"
+            aria-live="polite"
+            hidden
+          >
+            <sl-icon name="check-circle-fill" style="color: var(--usa-green-50v); font-size: 1.25rem;"></sl-icon>
+            Color scheme saved and applied.
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== RESET ===== -->
+        <section class="component-section" id="reset" aria-labelledby="reset-heading">
+          <h2 id="reset-heading">Reset to Defaults</h2>
+          <p>Clear all saved appearance preferences and return to the standard USWDS Blue scheme.</p>
+          <sl-button id="reset-btn" variant="default" size="small">
+            <sl-icon slot="prefix" name="arrow-counterclockwise"></sl-icon>
+            Reset to USWDS Blue
+          </sl-button>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="usa-footer usa-footer--slim">
+      <div class="grid-container usa-footer__return-to-top">
+        <a href="#">Return to top</a>
+      </div>
+      <div class="usa-footer__primary-section">
+        <div class="grid-container">
+          <nav class="usa-footer__nav" aria-label="Footer navigation">
+            <ul class="grid-row grid-gap" role="list">
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/">Home</a>
+              </li>
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/components.html">Components</a>
+              </li>
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/forms.html">Forms</a>
+              </li>
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/kitchen-sink.html">Kitchen Sink</a>
+              </li>
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/admin.html">Admin</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="usa-footer__secondary-section">
+        <div class="grid-container">
+          <p>&copy; 2025 MyAgency.gov. Built with Vite + Shoelace + htmx.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/src/main.ts"></script>
+
+    <!-- Admin page logic — runs after main.ts bootstraps Shoelace -->
+    <script type="module">
+      import { COLOR_SCHEMES, getSavedSchemeName, saveColorScheme, THEME_STORAGE_KEY } from '/src/theme.ts';
+
+      const grid = document.getElementById('theme-grid');
+      const feedback = document.getElementById('save-feedback');
+      const resetBtn = document.getElementById('reset-btn');
+      let feedbackTimer = null;
+
+      /** Build and inject theme cards into the grid. */
+      function renderCards(activeName) {
+        grid.innerHTML = '';
+        for (const scheme of COLOR_SCHEMES) {
+          const isActive = scheme.name === activeName;
+          const li = document.createElement('li');
+          li.className = 'theme-card' + (isActive ? ' theme-card--active' : '');
+          li.dataset.scheme = scheme.name;
+          li.innerHTML = `
+            <div class="theme-card__swatch" style="background-color: ${scheme.primary};" aria-hidden="true">
+              <span class="theme-card__swatch-dot"></span>
+              <span class="theme-card__swatch-bar"></span>
+              <span class="theme-card__swatch-dot" style="background:${scheme.dark};"></span>
+            </div>
+            <div class="theme-card__body">
+              <h3 class="theme-card__title">${scheme.label}</h3>
+              <p class="theme-card__desc">${scheme.description}</p>
+              <div class="theme-card__actions">
+                ${isActive
+                  ? `<sl-badge variant="success">Active</sl-badge>`
+                  : `<sl-button size="small" class="theme-card__apply-btn" data-scheme="${scheme.name}"
+                       aria-label="Apply ${scheme.label} color scheme"
+                       aria-pressed="false">Apply</sl-button>`
+                }
+              </div>
+            </div>
+          `;
+          grid.appendChild(li);
+        }
+
+        // Attach click handlers to apply buttons
+        grid.querySelectorAll('.theme-card__apply-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const name = btn.dataset.scheme;
+            saveColorScheme(name);
+            renderCards(name);
+            showFeedback();
+          });
+        });
+      }
+
+      function showFeedback() {
+        feedback.hidden = false;
+        clearTimeout(feedbackTimer);
+        feedbackTimer = setTimeout(() => { feedback.hidden = true; }, 4000);
+      }
+
+      // Reset handler
+      resetBtn.addEventListener('click', () => {
+        localStorage.removeItem(THEME_STORAGE_KEY);
+        // Clear inline style overrides so CSS file values take over
+        document.documentElement.style.removeProperty('--usa-blue-60v');
+        document.documentElement.style.removeProperty('--usa-blue-80');
+        renderCards('uswds-blue');
+        showFeedback();
+      });
+
+      // Initial render
+      renderCards(getSavedSchemeName() || 'uswds-blue');
+    </script>
+  </body>
+</html>
