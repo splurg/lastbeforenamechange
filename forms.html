@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Site | Forms Demo</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- ===================== SITE HEADER ===================== -->
+    <header class="site-header">
+      <nav class="usa-navbar" aria-label="Primary navigation">
+        <div class="usa-navbar__inner">
+          <a href="/" class="usa-navbar__brand">
+            <sl-icon name="building-fill"></sl-icon>
+            <span>MyAgency.gov</span>
+          </a>
+          <button
+            class="usa-menu-btn"
+            aria-label="Open navigation menu"
+            _="on click toggle .usa-navbar__menu--open on #primary-nav"
+          >
+            <sl-icon name="list"></sl-icon>
+          </button>
+          <ul id="primary-nav" class="usa-nav__primary" role="list">
+            <li><a href="/" class="usa-nav__link">Home</a></li>
+            <li><a href="/components.html" class="usa-nav__link">Components</a></li>
+            <li><a href="/forms.html" class="usa-nav__link usa-current">Forms Demo</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <div class="grid-container" style="padding-top: 2rem; padding-bottom: 4rem;">
+        <h1>Forms</h1>
+        <p class="usa-intro">
+          USWDS form components implemented with Shoelace. Form validation and
+          submission feedback is handled by htmx and hyperscript — no custom
+          JavaScript framework required.
+        </p>
+
+        <!-- ===== CONTACT FORM ===== -->
+        <section class="component-section" id="contact-form">
+          <h2>Contact form</h2>
+          <p>
+            USWDS equivalent:
+            <a href="https://designsystem.digital.gov/components/form/" target="_blank" rel="noopener">Form</a>
+          </p>
+
+          <form
+            id="contact-form-el"
+            novalidate
+            hx-post="/api/contact"
+            hx-target="#form-response"
+            hx-swap="innerHTML"
+            hx-indicator="#form-spinner"
+            _="on htmx:beforeRequest
+                 remove .sl-input--invalid from <sl-input, sl-select, sl-textarea/>
+               on htmx:responseError
+                 put 'Server error. Please try again.' into #form-response"
+            style="max-width: 560px;"
+          >
+            <!-- First / Last name -->
+            <div class="grid-row grid-gap">
+              <div class="grid-col-6">
+                <sl-input
+                  name="first_name"
+                  label="First name"
+                  required
+                  autocomplete="given-name"
+                  help-text="Legal first name"
+                ></sl-input>
+              </div>
+              <div class="grid-col-6">
+                <sl-input
+                  name="last_name"
+                  label="Last name"
+                  required
+                  autocomplete="family-name"
+                ></sl-input>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <sl-input
+              name="email"
+              label="Email address"
+              type="email"
+              required
+              autocomplete="email"
+              help-text="We will only use this to respond to your message."
+              style="margin-top: 1rem;"
+            ></sl-input>
+
+            <!-- Phone -->
+            <sl-input
+              name="phone"
+              label="Phone number (optional)"
+              type="tel"
+              autocomplete="tel"
+              style="margin-top: 1rem;"
+            ></sl-input>
+
+            <!-- Subject -->
+            <sl-select
+              name="subject"
+              label="Subject"
+              required
+              placeholder="Select a subject"
+              style="margin-top: 1rem;"
+            >
+              <sl-option value="general">General inquiry</sl-option>
+              <sl-option value="support">Technical support</sl-option>
+              <sl-option value="feedback">Feedback / suggestion</sl-option>
+              <sl-option value="accessibility">Accessibility concern</sl-option>
+            </sl-select>
+
+            <!-- Message -->
+            <sl-textarea
+              name="message"
+              label="Message"
+              required
+              rows="5"
+              maxlength="1000"
+              help-text="Maximum 1000 characters."
+              style="margin-top: 1rem;"
+            ></sl-textarea>
+
+            <!-- Checkbox -->
+            <sl-checkbox name="consent" required style="margin-top: 1rem;">
+              I agree to the
+              <a href="#" _="on click(event) halt the event">privacy policy</a>
+            </sl-checkbox>
+
+            <!-- Submit row -->
+            <div style="margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+              <sl-button
+                type="submit"
+                variant="primary"
+                id="form-submit-btn"
+                _="on click
+                     set valid to true
+                     for inp in <sl-input[required], sl-select[required], sl-textarea[required], sl-checkbox[required]/> in me.closest('form')
+                       if inp.value is '' or inp.value is false
+                         add .sl-input--invalid to inp
+                         set valid to false
+                       end
+                     end
+                     if valid is false halt"
+              >
+                Submit
+              </sl-button>
+              <sl-spinner
+                id="form-spinner"
+                class="htmx-indicator"
+                style="font-size: 1.5rem;"
+              ></sl-spinner>
+            </div>
+          </form>
+
+          <div
+            id="form-response"
+            aria-live="polite"
+            style="margin-top: 1rem;"
+          ></div>
+        </section>
+
+        <sl-divider style="margin-top: 2rem;"></sl-divider>
+
+        <!-- ===== SEARCH ===== -->
+        <section class="component-section" id="search">
+          <h2>Search</h2>
+          <p>
+            USWDS equivalent:
+            <a href="https://designsystem.digital.gov/components/search/" target="_blank" rel="noopener">Search</a>
+          </p>
+
+          <form
+            role="search"
+            style="display: flex; gap: 0.5rem; max-width: 480px;"
+            hx-get="/api/search"
+            hx-target="#search-results"
+            hx-trigger="submit"
+            hx-indicator="#search-spinner"
+          >
+            <sl-input
+              name="q"
+              placeholder="Search…"
+              aria-label="Search"
+              style="flex: 1;"
+              clearable
+            >
+              <sl-icon slot="prefix" name="search"></sl-icon>
+            </sl-input>
+            <sl-button type="submit" variant="primary">
+              <sl-icon slot="prefix" name="search"></sl-icon>
+              Search
+            </sl-button>
+            <sl-spinner id="search-spinner" class="htmx-indicator" style="font-size: 1.5rem;"></sl-spinner>
+          </form>
+
+          <div
+            id="search-results"
+            aria-live="polite"
+            style="margin-top: 1rem;"
+          >
+            <p class="usa-hint">Enter a search term above.</p>
+          </div>
+        </section>
+
+        <sl-divider style="margin-top: 2rem;"></sl-divider>
+
+        <!-- ===== FILE UPLOAD ===== -->
+        <section class="component-section" id="file-input">
+          <h2>File input</h2>
+          <p>
+            USWDS equivalent:
+            <a href="https://designsystem.digital.gov/components/file-input/" target="_blank" rel="noopener">File input</a>
+          </p>
+
+          <label class="usa-label" for="file-upload">Upload a document</label>
+          <span class="usa-hint" id="file-upload-hint">Accepted file types: PDF, DOC, DOCX. Max 5 MB.</span>
+          <input
+            class="usa-file-input"
+            id="file-upload"
+            name="document"
+            type="file"
+            accept=".pdf,.doc,.docx"
+            aria-describedby="file-upload-hint"
+            multiple
+            _="on change
+                 set files to my files
+                 put 'Selected: ' + files.length + ' file(s)' into #file-output"
+          />
+          <p id="file-output" style="font-size: 0.875rem; margin-top: 0.5rem;"></p>
+        </section>
+
+        <sl-divider style="margin-top: 2rem;"></sl-divider>
+
+        <!-- ===== RADIO & CHECKBOX GROUP ===== -->
+        <section class="component-section" id="radio-checkbox">
+          <h2>Radio buttons &amp; checkboxes</h2>
+          <div class="grid-row grid-gap">
+            <div class="grid-col-auto">
+              <h3>Radio group</h3>
+              <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/radio-buttons/" target="_blank" rel="noopener">Radio buttons</a></p>
+              <sl-radio-group label="Select your preferred contact method" name="contact_pref" value="email">
+                <sl-radio value="email">Email</sl-radio>
+                <sl-radio value="phone">Phone</sl-radio>
+                <sl-radio value="mail">Mail</sl-radio>
+              </sl-radio-group>
+            </div>
+            <div class="grid-col-auto" style="margin-left: 3rem;">
+              <h3>Checkbox group</h3>
+              <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/checkbox/" target="_blank" rel="noopener">Checkbox</a></p>
+              <fieldset style="border: none; padding: 0; margin: 0;">
+                <legend style="font-weight: bold; margin-bottom: 0.5rem;">Preferred topics</legend>
+                <sl-checkbox name="topic_health">Health &amp; safety</sl-checkbox><br />
+                <sl-checkbox name="topic_finance">Finance &amp; benefits</sl-checkbox><br />
+                <sl-checkbox name="topic_education">Education</sl-checkbox><br />
+                <sl-checkbox name="topic_tech">Technology</sl-checkbox>
+              </fieldset>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="usa-footer usa-footer--slim">
+      <div class="usa-footer__primary-section">
+        <div class="grid-container">
+          <p>&copy; 2025 MyAgency.gov</p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
