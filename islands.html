@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Site | Islands / Partial SPA</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- ===================== SKIP NAV ===================== -->
+    <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+
+    <!-- ===================== SITE HEADER ===================== -->
+    <header class="site-header">
+      <nav class="usa-navbar" aria-label="Primary navigation">
+        <div class="usa-navbar__inner">
+          <a href="/" class="usa-navbar__brand">
+            <sl-icon name="building-fill"></sl-icon>
+            <span>MyAgency.gov</span>
+          </a>
+          <button
+            class="usa-menu-btn"
+            aria-label="Open navigation menu"
+            _="on click toggle .usa-navbar__menu--open on #primary-nav"
+          >
+            <sl-icon name="list"></sl-icon>
+          </button>
+          <ul id="primary-nav" class="usa-nav__primary" role="list">
+            <li><a href="/" class="usa-nav__link">Home</a></li>
+            <li><a href="/components.html" class="usa-nav__link">Components</a></li>
+            <li><a href="/forms.html" class="usa-nav__link">Forms Demo</a></li>
+            <li><a href="/islands.html" class="usa-nav__link usa-current">Islands</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ===================== MAIN ===================== -->
+    <main id="main-content">
+      <div class="grid-container" style="padding-top: 2rem; padding-bottom: 4rem;">
+
+        <h1>Island / Partial SPA Architecture</h1>
+        <p class="usa-intro">
+          Keep your HTML-first pages intact and progressively enhance
+          <em>only</em> the high-interactivity regions by mounting tiny
+          <a href="https://preactjs.com/" target="_blank" rel="noopener">Preact</a>
+          components — called <strong>islands</strong> — directly onto server-rendered
+          DOM nodes.  The surrounding page never becomes a single-page app; it
+          stays fast, accessible, and htmx-friendly.
+        </p>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== HOW IT WORKS ===== -->
+        <section class="component-section" id="how-it-works">
+          <h2>How it works</h2>
+
+          <div class="island-arch-diagram" role="img" aria-label="Island architecture diagram">
+            <div class="island-arch-row">
+              <div class="island-arch-block island-arch-block--server">
+                <strong>Server-rendered HTML</strong>
+                <p>Header, nav, hero, static content, footer — delivered as plain HTML; zero JS cost.</p>
+              </div>
+              <div class="island-arch-block island-arch-block--island">
+                <strong>⚡ Preact Island</strong>
+                <p>High-interactivity region (search, data table, counter…) hydrated client-side from a <code>data-island</code> attribute.</p>
+              </div>
+              <div class="island-arch-block island-arch-block--server">
+                <strong>Server-rendered HTML</strong>
+                <p>More static content — forms driven by htmx, accordions powered by hyperscript.</p>
+              </div>
+              <div class="island-arch-block island-arch-block--island">
+                <strong>⚡ Preact Island</strong>
+                <p>Another interactive region, independently bundled and lazy-loaded.</p>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 1.5rem;">Key principles</h3>
+          <ul>
+            <li><strong>Progressive enhancement</strong> — islands contain a static HTML fallback inside the mount node; Preact replaces it once JS loads.</li>
+            <li><strong>Minimal footprint</strong> — Preact weighs ~3 KB (gzip). Each island is code-split and lazy-loaded only when needed.</li>
+            <li><strong>Coexistence</strong> — htmx and hyperscript keep working on everything outside an island. Mix and match freely.</li>
+            <li><strong>Accessibility</strong> — islands use semantic HTML, ARIA attributes, and keyboard-accessible controls; no SPA routing quirks.</li>
+          </ul>
+
+          <h3>Mount syntax</h3>
+          <p>Add <code>data-island</code> and <code>data-props</code> attributes to any element:</p>
+          <pre class="island-code"><code>&lt;div
+  data-island="LiveSearchIsland"
+  data-props='{"items":[...],"heading":"Search programs"}'
+&gt;
+  &lt;!-- optional static fallback shown before JS loads --&gt;
+  &lt;p&gt;Loading search…&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          <p>
+            The island loader (<code>src/islands/mount.ts</code>) scans for
+            <code>[data-island]</code> nodes at page load, dynamically imports the
+            matching component, and calls
+            <a href="https://preactjs.com/guide/v10/api-reference/#render" target="_blank" rel="noopener">
+              <code>preact/render</code>
+            </a>
+            into the element.
+          </p>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== ISLAND 1: COUNTER ===== -->
+        <section class="component-section" id="counter-island">
+          <h2>Island 1 — Counter <sl-badge variant="primary">Preact</sl-badge></h2>
+          <p>
+            The simplest possible island: a stateful increment / decrement counter.
+            It demonstrates that local React-style state works inside an island
+            without affecting the rest of the page.
+          </p>
+
+          <div class="island-demo-row">
+            <div
+              data-island="CounterIsland"
+              data-props='{"start":0,"label":"Apples"}'
+            >
+              <p class="island-fallback">Loading island…</p>
+            </div>
+            <div
+              data-island="CounterIsland"
+              data-props='{"start":10,"label":"Oranges"}'
+            >
+              <p class="island-fallback">Loading island…</p>
+            </div>
+            <div
+              data-island="CounterIsland"
+              data-props='{"start":-5,"label":"Deficit"}'
+            >
+              <p class="island-fallback">Loading island…</p>
+            </div>
+          </div>
+
+          <p style="margin-top: 1rem;">
+            Each counter is an <em>independent</em> island — state is never
+            shared between them unless you wire them up explicitly.
+          </p>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== ISLAND 2: LIVE SEARCH ===== -->
+        <section class="component-section" id="search-island">
+          <h2>Island 2 — Live Search <sl-badge variant="primary">Preact</sl-badge></h2>
+          <p>
+            Client-side instant search across a list of federal programs.  Results
+            update on every keystroke with no network round-trip — ideal when the
+            data set fits comfortably in the page or was pre-fetched by htmx.
+          </p>
+
+          <div
+            data-island="LiveSearchIsland"
+            data-props='{
+              "heading": "Search federal programs",
+              "placeholder": "e.g. infrastructure, technology…",
+              "items": [
+                {"id":1,"title":"Infrastructure Renewal","description":"Modernise roads, bridges, and utilities nationwide.","tags":["infrastructure","public-works"]},
+                {"id":2,"title":"Digital Services","description":"Deliver citizen-facing digital tools and APIs.","tags":["technology","digital"]},
+                {"id":3,"title":"Research & Development","description":"Fund applied science and innovation grants.","tags":["research","science"]},
+                {"id":4,"title":"Staff Training","description":"Upskill the federal workforce with modern competencies.","tags":["hr","training"]},
+                {"id":5,"title":"Cybersecurity Hardening","description":"Zero-trust network architecture and endpoint protection.","tags":["technology","security"]},
+                {"id":6,"title":"Public Outreach","description":"Multilingual communications and community engagement.","tags":["communications","outreach"]},
+                {"id":7,"title":"Health & Safety Audits","description":"Quarterly workplace safety compliance inspections.","tags":["compliance","health"]},
+                {"id":8,"title":"Cloud Migration","description":"Move on-premise workloads to FedRAMP-authorised cloud.","tags":["technology","cloud"]},
+                {"id":9,"title":"Procurement Reform","description":"Streamline vendor selection and contract management.","tags":["finance","procurement"]},
+                {"id":10,"title":"Accessibility Remediation","description":"Audit and remediate Section 508 / WCAG 2.1 issues.","tags":["digital","accessibility"]}
+              ]
+            }'
+          >
+            <p class="island-fallback">Loading search island…</p>
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== ISLAND 3: DATA TABLE ===== -->
+        <section class="component-section" id="table-island">
+          <h2>Island 3 — Interactive Data Table <sl-badge variant="primary">Preact</sl-badge></h2>
+          <p>
+            The static budget table from the Components page is replaced here by
+            a fully interactive island: click any column header to sort, type to
+            filter across all columns, and page through results.
+          </p>
+
+          <div
+            data-island="DataTableIsland"
+            data-props='{
+              "caption": "Agency program budget — FY 2025 (interactive)",
+              "pageSize": 5,
+              "columns": [
+                {"key":"program",    "label":"Program"},
+                {"key":"department", "label":"Department"},
+                {"key":"budget",     "label":"Budget ($M)", "numeric":true},
+                {"key":"spent",      "label":"Spent ($M)",  "numeric":true},
+                {"key":"status",     "label":"Status"}
+              ],
+              "rows": [
+                {"program":"Infrastructure Renewal",   "department":"Public Works",     "budget":120,"spent":98, "status":"On track"},
+                {"program":"Digital Services",          "department":"Technology",        "budget":45, "spent":50, "status":"Over budget"},
+                {"program":"Research & Development",    "department":"Science",           "budget":80, "spent":62, "status":"In progress"},
+                {"program":"Staff Training",             "department":"HR",                "budget":15, "spent":15, "status":"Complete"},
+                {"program":"Cybersecurity Hardening",   "department":"Technology",        "budget":60, "spent":22, "status":"In progress"},
+                {"program":"Public Outreach",            "department":"Communications",    "budget":30, "spent":28, "status":"On track"},
+                {"program":"Health & Safety Audits",    "department":"Compliance",        "budget":25, "spent":25, "status":"Complete"},
+                {"program":"Cloud Migration",            "department":"Technology",        "budget":90, "spent":44, "status":"In progress"},
+                {"program":"Procurement Reform",         "department":"Finance",           "budget":18, "spent":8,  "status":"On track"},
+                {"program":"Accessibility Remediation", "department":"Digital Services",  "budget":12, "spent":11, "status":"On track"},
+                {"program":"Data Analytics Platform",   "department":"Technology",        "budget":55, "spent":30, "status":"In progress"},
+                {"program":"Environmental Compliance",  "department":"Compliance",        "budget":22, "spent":22, "status":"Complete"}
+              ]
+            }'
+          >
+            <p class="island-fallback">Loading table island…</p>
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== COEXISTENCE DEMO ===== -->
+        <section class="component-section" id="coexistence">
+          <h2>Coexistence — htmx + Islands on the same page</h2>
+          <p>
+            Islands and htmx are completely independent.  The button below uses
+            plain <code>hx-get</code> to fetch a server snippet — exactly as on
+            the home page — while the counters above remain live Preact state.
+          </p>
+          <sl-button
+            variant="primary"
+            hx-get="/api/greeting.html"
+            hx-target="#island-greeting-output"
+            hx-swap="innerHTML"
+            hx-indicator="#island-greeting-spinner"
+          >
+            Fetch greeting (htmx)
+          </sl-button>
+          <sl-spinner
+            id="island-greeting-spinner"
+            class="htmx-indicator"
+            style="font-size: 1.5rem; margin-left: 1rem;"
+          ></sl-spinner>
+          <div
+            id="island-greeting-output"
+            class="usa-alert usa-alert--info"
+            style="margin-top: 1rem;"
+            aria-live="polite"
+          >
+            <p class="usa-alert__text">Greeting will appear here.</p>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="usa-footer usa-footer--slim">
+      <div class="grid-container usa-footer__return-to-top">
+        <a href="#">Return to top</a>
+      </div>
+      <div class="usa-footer__primary-section">
+        <div class="grid-container">
+          <nav class="usa-footer__nav" aria-label="Footer navigation">
+            <ul class="grid-row grid-gap" role="list">
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/">Home</a>
+              </li>
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/components.html">Components</a>
+              </li>
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/forms.html">Forms</a>
+              </li>
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/islands.html">Islands</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="usa-footer__secondary-section">
+        <div class="grid-container">
+          <p>&copy; 2025 MyAgency.gov. Built with Vite + Shoelace + htmx + Preact islands.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Islands entry (Shoelace + htmx + hyperscript + island mounter) -->
+    <script type="module" src="/src/islands/index.ts"></script>
+  </body>
+</html>

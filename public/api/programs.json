@@ -1,0 +1,14 @@
+[
+  { "id":  1, "program": "Infrastructure Renewal",  "department": "Public Works",     "budget": 120, "spent": 98,  "status": "On track"    },
+  { "id":  2, "program": "Digital Services",         "department": "Technology",       "budget":  45, "spent": 50,  "status": "Over budget" },
+  { "id":  3, "program": "Research & Development",   "department": "Science",          "budget":  80, "spent": 62,  "status": "In progress" },
+  { "id":  4, "program": "Staff Training",            "department": "HR",               "budget":  15, "spent": 15,  "status": "Complete"    },
+  { "id":  5, "program": "Cybersecurity Hardening",  "department": "Technology",       "budget":  60, "spent": 22,  "status": "In progress" },
+  { "id":  6, "program": "Public Outreach",           "department": "Communications",   "budget":  30, "spent": 28,  "status": "On track"    },
+  { "id":  7, "program": "Health & Safety Audits",   "department": "Compliance",       "budget":  25, "spent": 25,  "status": "Complete"    },
+  { "id":  8, "program": "Cloud Migration",           "department": "Technology",       "budget":  90, "spent": 44,  "status": "In progress" },
+  { "id":  9, "program": "Procurement Reform",        "department": "Finance",          "budget":  18, "spent":  8,  "status": "On track"    },
+  { "id": 10, "program": "Accessibility Remediation","department": "Digital Services", "budget":  12, "spent": 11,  "status": "On track"    },
+  { "id": 11, "program": "Data Analytics Platform",  "department": "Technology",       "budget":  55, "spent": 30,  "status": "In progress" },
+  { "id": 12, "program": "Environmental Compliance", "department": "Compliance",       "budget":  22, "spent": 22,  "status": "Complete"    }
+]

@@ -14,8 +14,10 @@
     "vite-plugin-static-copy": "^3.2.0"
   },
   "dependencies": {
+    "@preact/preset-vite": "^2.10.3",
     "@shoelace-style/shoelace": "^2.20.1",
     "htmx.org": "^2.0.8",
-    "hyperscript.org": "^0.9.14"
+    "hyperscript.org": "^0.9.14",
+    "preact": "^10.28.4"
   }
 }

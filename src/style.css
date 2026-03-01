@@ -469,3 +469,350 @@ sl-radio-group {
 .usa-skipnav:focus {
   left: 0;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Island / Partial SPA — shared styles
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Generic island button ── */
+.island-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.9375rem;
+  font-family: var(--usa-font-sans);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+  line-height: 1.4;
+}
+
+.island-btn--outline {
+  background: transparent;
+  border: 2px solid var(--usa-blue-60v);
+  color: var(--usa-blue-60v);
+}
+
+.island-btn--outline:hover:not(:disabled) {
+  background: var(--usa-blue-60v);
+  color: var(--usa-white);
+}
+
+.island-btn--outline:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.island-btn--ghost {
+  background: transparent;
+  border: 1px solid var(--usa-gray-10);
+  color: var(--usa-gray-50);
+  font-size: 0.8125rem;
+}
+
+.island-btn--ghost:hover {
+  border-color: var(--usa-gray-50);
+  color: var(--usa-gray-90);
+}
+
+/* ── Static fallback text (shown before Preact hydrates) ── */
+.island-fallback {
+  color: var(--usa-gray-50);
+  font-style: italic;
+  font-size: 0.875rem;
+}
+
+/* ── Counter island ── */
+.island-counter {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--usa-white);
+  border: 1px solid var(--usa-gray-10);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  min-width: 140px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.06);
+}
+
+.island-counter__label {
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--usa-gray-50);
+}
+
+.island-counter__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.island-counter__value {
+  font-size: 2rem;
+  font-weight: 700;
+  min-width: 3rem;
+  text-align: center;
+  color: var(--usa-blue-60v);
+}
+
+.island-counter__delta {
+  font-size: 0.8125rem;
+  color: var(--usa-gray-50);
+  margin: 0;
+}
+
+/* demo layout for multiple side-by-side counters */
+.island-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+/* ── Live search island ── */
+.island-search {
+  max-width: 640px;
+}
+
+.island-search__label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.island-search__input-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 2px solid var(--usa-gray-10);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--usa-white);
+}
+
+.island-search__input-row:focus-within {
+  border-color: var(--usa-blue-60v);
+  outline: 2px solid var(--usa-blue-60v);
+  outline-offset: 1px;
+}
+
+.island-search__icon {
+  padding: 0 0.5rem 0 0.75rem;
+  font-size: 0.875rem;
+}
+
+.island-search__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.625rem 0.5rem;
+  font-family: var(--usa-font-sans);
+  font-size: 1rem;
+  background: transparent;
+}
+
+.island-search__clear {
+  border: none;
+  background: transparent;
+  padding: 0 0.75rem;
+  cursor: pointer;
+  color: var(--usa-gray-50);
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.island-search__clear:hover {
+  color: var(--usa-gray-90);
+}
+
+.island-search__count {
+  font-size: 0.8125rem;
+  color: var(--usa-gray-50);
+  margin: 0.4rem 0 0.75rem;
+}
+
+.island-search__results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.island-search__item {
+  border: 1px solid var(--usa-gray-10);
+  border-radius: 4px;
+  padding: 0.875rem 1rem;
+  background: var(--usa-white);
+}
+
+.island-search__item-title {
+  display: block;
+  color: var(--usa-blue-60v);
+}
+
+.island-search__item-desc {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--usa-gray-90);
+}
+
+.island-search__empty {
+  color: var(--usa-gray-50);
+  font-style: italic;
+  padding: 0.75rem 0;
+}
+
+.island-search__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.island-tag {
+  display: inline-block;
+  background: var(--usa-gray-5);
+  border: 1px solid var(--usa-gray-10);
+  border-radius: 2px;
+  padding: 0.1em 0.5em;
+  font-size: 0.75rem;
+  color: var(--usa-gray-50);
+}
+
+.island-tag--match {
+  background: #d4e8ff;
+  border-color: var(--usa-blue-60v);
+  color: var(--usa-blue-80);
+}
+
+/* ── Data table island ── */
+.island-table-wrapper {
+  margin-top: 0.5rem;
+}
+
+.island-table__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.island-table__filter-label {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+}
+
+.island-table__filter {
+  border: 2px solid var(--usa-gray-10);
+  border-radius: 4px;
+  padding: 0.4rem 0.75rem;
+  font-family: var(--usa-font-sans);
+  font-size: 0.9375rem;
+  max-width: 240px;
+  flex: 1 1 160px;
+}
+
+.island-table__filter:focus {
+  outline: 2px solid var(--usa-blue-60v);
+  border-color: var(--usa-blue-60v);
+}
+
+.island-table__count {
+  font-size: 0.8125rem;
+  color: var(--usa-gray-50);
+  white-space: nowrap;
+}
+
+.island-table__th { white-space: nowrap; }
+
+.island-table__th--numeric,
+.island-table__td--numeric { text-align: right; }
+
+.island-table__sort-btn {
+  background: none;
+  border: none;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  color: inherit;
+  padding: 0;
+  text-align: left;
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.island-table__sort-btn:hover {
+  color: var(--usa-blue-60v);
+}
+
+.island-table__empty {
+  text-align: center;
+  color: var(--usa-gray-50);
+  font-style: italic;
+  padding: 1rem 0;
+}
+
+.island-table__pagination {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.island-table__page-info {
+  font-size: 0.9375rem;
+  color: var(--usa-gray-50);
+}
+
+/* ── Architecture diagram ── */
+.island-arch-diagram {
+  background: var(--usa-gray-5);
+  border: 1px solid var(--usa-gray-10);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1rem 0;
+}
+
+.island-arch-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.island-arch-block {
+  flex: 1 1 180px;
+  border-radius: 4px;
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+}
+
+.island-arch-block p { margin: 0.35rem 0 0; color: var(--usa-gray-50); }
+
+.island-arch-block--server {
+  background: var(--usa-white);
+  border: 1px solid var(--usa-gray-10);
+}
+
+.island-arch-block--island {
+  background: #d4e8ff;
+  border: 2px solid var(--usa-blue-60v);
+}
+
+/* ── Code block ── */
+.island-code {
+  background: var(--usa-gray-5);
+  border: 1px solid var(--usa-gray-10);
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
