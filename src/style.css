@@ -1,8 +1,21 @@
+/*
+  ------------------------------------------------------------------
+  LEGACY DEV HEADER (modernized)
+  Project: lastbeforenamechange
+  File: src/style.css
+  Purpose: Global styles and USWDS-inspired tokens used across pages.
+  Maintainer: dev-team@example.gov
+  Created: 2026-03-01
+  Notes: Prefer editing tokens at the top; keep Shoelace tokens mapped to `--sl-*` variables.
+  Accessibility: Validate color contrast when changing token values.
+  ------------------------------------------------------------------
+*/
+
 /* ============================================================
-   style.css — USWDS-inspired custom properties & global styles
-   Uses Shoelace design tokens where possible so everything
-   stays in sync when you retheme Shoelace.
-   ============================================================ */
+  style.css — USWDS-inspired custom properties & global styles
+  Uses Shoelace design tokens where possible so everything
+  stays in sync when you retheme Shoelace.
+  ============================================================ */
 
 /* ── USWDS-compatible color tokens ── */
 :root {
