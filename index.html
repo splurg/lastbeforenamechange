@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Site | Home</title>
+
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- ===================== SITE HEADER ===================== -->
+    <header class="site-header">
+      <div class="usa-banner">
+        <div class="usa-banner__inner">
+          <sl-icon name="flag"></sl-icon>
+          <p>An official website of the United States government</p>
+          <sl-button
+            variant="text"
+            size="small"
+            id="banner-toggle"
+            aria-expanded="false"
+            _="on click toggle .is-open on #banner-content
+               then if @aria-expanded is 'false' set @aria-expanded to 'true'
+               else set @aria-expanded to 'false'"
+          >
+            Here's how you know
+            <sl-icon slot="suffix" name="chevron-down"></sl-icon>
+          </sl-button>
+        </div>
+        <div id="banner-content" class="usa-banner__content" hidden
+          _="on click(target) if target.closest('#banner-toggle') remove @hidden from me">
+          <sl-icon name="lock-fill"></sl-icon>
+          <p>
+            <strong>Official websites use .gov</strong> — A <strong>.gov</strong>
+            website belongs to an official government organization in the United States.
+          </p>
+          <sl-icon name="lock-fill"></sl-icon>
+          <p>
+            <strong>Secure .gov websites use HTTPS</strong> — A
+            <strong>lock</strong> (🔒) or <strong>https://</strong> means you've
+            safely connected to the .gov website.
+          </p>
+        </div>
+      </div>
+
+      <nav class="usa-navbar" aria-label="Primary navigation">
+        <div class="usa-navbar__inner">
+          <a href="/" class="usa-navbar__brand">
+            <sl-icon name="building-fill"></sl-icon>
+            <span>MyAgency.gov</span>
+          </a>
+          <button
+            class="usa-menu-btn"
+            aria-label="Open navigation menu"
+            _="on click toggle .usa-navbar__menu--open on #primary-nav"
+          >
+            <sl-icon name="list"></sl-icon>
+          </button>
+          <ul id="primary-nav" class="usa-nav__primary" role="list">
+            <li><a href="/" class="usa-nav__link usa-current">Home</a></li>
+            <li><a href="/components.html" class="usa-nav__link">Components</a></li>
+            <li><a href="/forms.html" class="usa-nav__link">Forms Demo</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ===================== HERO ===================== -->
+    <main id="main-content">
+      <section class="usa-hero" aria-label="Introduction">
+        <div class="usa-hero__callout">
+          <h1 class="usa-hero__heading">
+            <span class="usa-hero__heading--alt">A modern government</span>
+            static site starter
+          </h1>
+          <p>
+            Built with <strong>Vite</strong>, <strong>TypeScript</strong>,
+            <strong>htmx</strong>, <strong>hyperscript</strong>, and
+            <strong>Shoelace</strong> web components — modeled after the U.S.
+            Web Design System (USWDS).
+          </p>
+          <a class="usa-button" href="/components.html">Explore components</a>
+        </div>
+      </section>
+
+      <!-- ===================== TAGLINE ===================== -->
+      <section class="usa-section">
+        <div class="grid-container">
+          <div class="grid-row grid-gap">
+            <div class="tablet:grid-col-4">
+              <sl-icon name="lightning-fill" style="font-size: 2rem; color: var(--sl-color-primary-600)"></sl-icon>
+              <h2 class="font-heading-xl">Fast by default</h2>
+              <p>Vite's lightning-fast HMR and optimized builds keep development snappy and production bundles tiny.</p>
+            </div>
+            <div class="tablet:grid-col-4">
+              <sl-icon name="puzzle-fill" style="font-size: 2rem; color: var(--sl-color-primary-600)"></sl-icon>
+              <h2 class="font-heading-xl">htmx + hyperscript</h2>
+              <p>Add interactivity without heavy JavaScript frameworks. htmx handles AJAX, hyperscript handles behaviour.</p>
+            </div>
+            <div class="tablet:grid-col-4">
+              <sl-icon name="palette2" style="font-size: 2rem; color: var(--sl-color-primary-600)"></sl-icon>
+              <h2 class="font-heading-xl">USWDS-inspired</h2>
+              <p>
+                Shoelace web components mirror the
+                <a href="https://designsystem.digital.gov/components/overview/" target="_blank" rel="noopener">
+                  USWDS component catalogue
+                </a>
+                — accessible and themeable out of the box.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== LIVE HTMX DEMO ===================== -->
+      <section class="usa-section usa-section--dark">
+        <div class="grid-container">
+          <h2>Live htmx demo</h2>
+          <p>Click the button to fetch a server-sent (or static) snippet without a full page reload.</p>
+          <sl-button
+            variant="primary"
+            hx-get="/api/greeting.html"
+            hx-target="#greeting-output"
+            hx-swap="innerHTML"
+            hx-indicator="#greeting-spinner"
+          >
+            Fetch greeting
+          </sl-button>
+          <sl-spinner id="greeting-spinner" class="htmx-indicator" style="font-size: 1.5rem; margin-left: 1rem;"></sl-spinner>
+          <div
+            id="greeting-output"
+            class="usa-alert usa-alert--info"
+            style="margin-top: 1rem"
+            aria-live="polite"
+          >
+            <p class="usa-alert__text">Greeting will appear here.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== ACCORDION ===================== -->
+      <section class="usa-section">
+        <div class="grid-container">
+          <h2>Frequently asked questions</h2>
+          <sl-details summary="What is USWDS?" class="usa-accordion-item">
+            The U.S. Web Design System (USWDS) is a design system for the federal government that helps agencies build accessible, consistent digital experiences.
+          </sl-details>
+          <sl-details summary="Why Shoelace?" class="usa-accordion-item">
+            Shoelace provides accessible, framework-agnostic web components that map closely to USWDS patterns and can be themed to match the design system's color and typography tokens.
+          </sl-details>
+          <sl-details summary="How does htmx fit in?" class="usa-accordion-item">
+            htmx lets you add AJAX, CSS transitions, WebSockets, and Server-Sent Events directly in HTML attributes—perfect for government sites that need progressive enhancement without a heavy SPA framework.
+          </sl-details>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="usa-footer usa-footer--slim">
+      <div class="grid-container usa-footer__return-to-top">
+        <a href="#">Return to top</a>
+      </div>
+      <div class="usa-footer__primary-section">
+        <div class="grid-container">
+          <nav class="usa-footer__nav" aria-label="Footer navigation">
+            <ul class="grid-row grid-gap" role="list">
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/">Home</a>
+              </li>
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/components.html">Components</a>
+              </li>
+              <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                <a class="usa-footer__primary-link" href="/forms.html">Forms</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="usa-footer__secondary-section">
+        <div class="grid-container">
+          <p>&copy; 2025 MyAgency.gov. Built with Vite + Shoelace + htmx.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Site | Components</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- ===================== SITE HEADER ===================== -->
+    <header class="site-header">
+      <nav class="usa-navbar" aria-label="Primary navigation">
+        <div class="usa-navbar__inner">
+          <a href="/" class="usa-navbar__brand">
+            <sl-icon name="building-fill"></sl-icon>
+            <span>MyAgency.gov</span>
+          </a>
+          <button
+            class="usa-menu-btn"
+            aria-label="Open navigation menu"
+            _="on click toggle .usa-navbar__menu--open on #primary-nav"
+          >
+            <sl-icon name="list"></sl-icon>
+          </button>
+          <ul id="primary-nav" class="usa-nav__primary" role="list">
+            <li><a href="/" class="usa-nav__link">Home</a></li>
+            <li><a href="/components.html" class="usa-nav__link usa-current">Components</a></li>
+            <li><a href="/forms.html" class="usa-nav__link">Forms Demo</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <div class="grid-container" style="padding-top: 2rem; padding-bottom: 4rem;">
+        <h1>USWDS Components via Shoelace</h1>
+        <p class="usa-intro">
+          The components below are powered by
+          <a href="https://shoelace.style" target="_blank" rel="noopener">Shoelace</a>
+          web components, styled to mirror the
+          <a href="https://designsystem.digital.gov/components/overview/" target="_blank" rel="noopener">
+            U.S. Web Design System (USWDS) component catalogue
+          </a>.
+          Interactivity is provided by <strong>htmx</strong> and
+          <strong>hyperscript</strong>.
+        </p>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== ALERTS ===== -->
+        <section class="component-section" id="alerts">
+          <h2>Alerts</h2>
+          <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/alert/" target="_blank" rel="noopener">Alert</a></p>
+
+          <sl-alert variant="primary" open>
+            <sl-icon slot="icon" name="info-circle"></sl-icon>
+            <strong>Informational</strong><br />This is an informational alert.
+          </sl-alert>
+
+          <sl-alert variant="success" open>
+            <sl-icon slot="icon" name="check2-circle"></sl-icon>
+            <strong>Success</strong><br />Your action completed successfully.
+          </sl-alert>
+
+          <sl-alert variant="warning" open>
+            <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
+            <strong>Warning</strong><br />Please review before proceeding.
+          </sl-alert>
+
+          <sl-alert variant="danger" open>
+            <sl-icon slot="icon" name="exclamation-octagon"></sl-icon>
+            <strong>Error</strong><br />There was a problem with your submission.
+          </sl-alert>
+
+          <sl-alert variant="primary" closable open id="dismissible-alert">
+            <sl-icon slot="icon" name="bell"></sl-icon>
+            <strong>Dismissible</strong><br />Click the × to dismiss this alert.
+          </sl-alert>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== BREADCRUMB ===== -->
+        <section class="component-section" id="breadcrumb">
+          <h2>Breadcrumb</h2>
+          <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/breadcrumb/" target="_blank" rel="noopener">Breadcrumb</a></p>
+          <nav aria-label="Breadcrumb" class="usa-breadcrumb">
+            <ol class="usa-breadcrumb__list" role="list">
+              <li class="usa-breadcrumb__list-item"><a href="/" class="usa-breadcrumb__link">Home</a></li>
+              <li class="usa-breadcrumb__list-item"><a href="/components.html" class="usa-breadcrumb__link">Components</a></li>
+              <li class="usa-breadcrumb__list-item usa-current" aria-current="page">Alerts</li>
+            </ol>
+          </nav>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== BUTTONS ===== -->
+        <section class="component-section" id="buttons">
+          <h2>Buttons</h2>
+          <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/button/" target="_blank" rel="noopener">Button</a></p>
+          <div class="button-row">
+            <sl-button variant="primary">Primary</sl-button>
+            <sl-button variant="default">Default</sl-button>
+            <sl-button variant="success">Success</sl-button>
+            <sl-button variant="warning">Warning</sl-button>
+            <sl-button variant="danger">Danger</sl-button>
+            <sl-button variant="text">Text / Link</sl-button>
+          </div>
+          <div class="button-row" style="margin-top: 1rem;">
+            <sl-button variant="primary" outline>Primary outline</sl-button>
+            <sl-button variant="default" outline>Default outline</sl-button>
+            <sl-button variant="primary" size="small">Small</sl-button>
+            <sl-button variant="primary" size="large">Large</sl-button>
+            <sl-button variant="primary" loading>Loading…</sl-button>
+            <sl-button variant="primary" disabled>Disabled</sl-button>
+          </div>
+          <div class="button-row" style="margin-top: 1rem;">
+            <sl-button
+              variant="primary"
+              _="on click put 'Button clicked!' into #click-output"
+            >
+              hyperscript click
+            </sl-button>
+            <span id="click-output" style="margin-left: 1rem; align-self: center;"></span>
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== BADGES / TAGS ===== -->
+        <section class="component-section" id="badges">
+          <h2>Badges &amp; Tags</h2>
+          <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/tag/" target="_blank" rel="noopener">Tag</a></p>
+          <div class="button-row">
+            <sl-badge variant="primary">Primary</sl-badge>
+            <sl-badge variant="success">Success</sl-badge>
+            <sl-badge variant="neutral">Neutral</sl-badge>
+            <sl-badge variant="warning">Warning</sl-badge>
+            <sl-badge variant="danger">Danger</sl-badge>
+          </div>
+          <div class="button-row" style="margin-top: 0.75rem;">
+            <sl-tag variant="primary" removable>Removable</sl-tag>
+            <sl-tag variant="success" removable>Tag B</sl-tag>
+            <sl-tag variant="neutral" removable>Tag C</sl-tag>
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== CARD ===== -->
+        <section class="component-section" id="cards">
+          <h2>Cards</h2>
+          <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/card/" target="_blank" rel="noopener">Card</a></p>
+          <div class="card-grid">
+            <sl-card class="usa-card">
+              <strong slot="header">Card Title</strong>
+              <p>This is a basic card component that can hold text, images, or any other content.</p>
+              <div slot="footer">
+                <sl-button variant="primary" size="small">Call to action</sl-button>
+                <sl-button variant="text" size="small">Secondary link</sl-button>
+              </div>
+            </sl-card>
+
+            <sl-card class="usa-card">
+              <img
+                slot="image"
+                src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80"
+                alt="A placeholder landscape"
+                style="width: 100%; height: 180px; object-fit: cover;"
+              />
+              <strong slot="header">Card with Image</strong>
+              <p>Cards can include header images to visually support the content.</p>
+              <div slot="footer">
+                <sl-button variant="primary" size="small">Learn more</sl-button>
+              </div>
+            </sl-card>
+
+            <sl-card class="usa-card">
+              <strong slot="header">htmx Card</strong>
+              <p>This card loads its body content dynamically via htmx on demand.</p>
+              <div
+                hx-get="/api/card-content.html"
+                hx-trigger="intersect once"
+                hx-swap="innerHTML"
+              >
+                <sl-skeleton effect="sheen"></sl-skeleton>
+                <sl-skeleton effect="sheen" style="width: 75%;"></sl-skeleton>
+              </div>
+              <div slot="footer">
+                <sl-button
+                  variant="primary"
+                  size="small"
+                  hx-get="/api/card-content.html"
+                  hx-target="[hx-trigger]"
+                  hx-swap="innerHTML"
+                >
+                  Reload content
+                </sl-button>
+              </div>
+            </sl-card>
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== DIALOG / MODAL ===== -->
+        <section class="component-section" id="modal">
+          <h2>Dialog (Modal)</h2>
+          <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/modal/" target="_blank" rel="noopener">Modal</a></p>
+          <sl-button
+            variant="primary"
+            _="on click call #demo-modal.show()"
+          >
+            Open modal
+          </sl-button>
+
+          <sl-dialog id="demo-modal" label="Confirm action">
+            <p>Are you sure you want to proceed? This action cannot be undone.</p>
+            <div slot="footer">
+              <sl-button
+                variant="primary"
+                _="on click call #demo-modal.hide() then put 'Confirmed!' into #modal-result"
+              >
+                Confirm
+              </sl-button>
+              <sl-button
+                variant="default"
+                _="on click call #demo-modal.hide() then put 'Cancelled.' into #modal-result"
+              >
+                Cancel
+              </sl-button>
+            </div>
+          </sl-dialog>
+          <p id="modal-result" style="margin-top: 0.5rem; font-style: italic;"></p>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== TABS ===== -->
+        <section class="component-section" id="tabs">
+          <h2>Tabs</h2>
+          <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/tabs/" target="_blank" rel="noopener">Tabs</a></p>
+          <sl-tab-group>
+            <sl-tab slot="nav" panel="overview">Overview</sl-tab>
+            <sl-tab slot="nav" panel="details">Details</sl-tab>
+            <sl-tab slot="nav" panel="activity" disabled>Disabled</sl-tab>
+
+            <sl-tab-panel name="overview">
+              <p>This is the <strong>Overview</strong> panel. Tabs map directly to the USWDS Tabs component and are fully keyboard-accessible.</p>
+            </sl-tab-panel>
+            <sl-tab-panel name="details">
+              <p>This is the <strong>Details</strong> panel. You can load content here via htmx by adding <code>hx-get</code> and <code>hx-trigger="sl-tab-show"</code>.</p>
+            </sl-tab-panel>
+            <sl-tab-panel name="activity">
+              <p>This panel is disabled.</p>
+            </sl-tab-panel>
+          </sl-tab-group>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== TABLE ===== -->
+        <section class="component-section" id="table">
+          <h2>Table</h2>
+          <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/table/" target="_blank" rel="noopener">Table</a></p>
+          <div class="usa-table-container--scrollable" tabindex="0">
+            <table class="usa-table usa-table--borderless usa-table--striped">
+              <caption>Agency budget summary FY2025</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Program</th>
+                  <th scope="col">Budget ($M)</th>
+                  <th scope="col">Spent ($M)</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Infrastructure</td><td>120</td><td>98</td>
+                  <td><sl-badge variant="success">On track</sl-badge></td>
+                </tr>
+                <tr>
+                  <td>Digital services</td><td>45</td><td>50</td>
+                  <td><sl-badge variant="warning">Over budget</sl-badge></td>
+                </tr>
+                <tr>
+                  <td>Research</td><td>80</td><td>62</td>
+                  <td><sl-badge variant="primary">In progress</sl-badge></td>
+                </tr>
+                <tr>
+                  <td>Training</td><td>15</td><td>15</td>
+                  <td><sl-badge variant="neutral">Complete</sl-badge></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== PROGRESS ===== -->
+        <section class="component-section" id="progress">
+          <h2>Progress Indicators</h2>
+          <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/step-indicator/" target="_blank" rel="noopener">Step indicator</a></p>
+          <sl-progress-bar value="35" label="Step 1 of 3 — Personal information"></sl-progress-bar>
+          <sl-progress-bar value="70" style="margin-top: 0.75rem;" label="Step 2 of 3 — Review"></sl-progress-bar>
+          <sl-progress-bar value="100" style="margin-top: 0.75rem;" label="Complete"></sl-progress-bar>
+
+          <h3 style="margin-top: 1.5rem;">Spinner</h3>
+          <sl-spinner style="font-size: 2rem;"></sl-spinner>
+          <sl-spinner style="font-size: 3rem; --track-width: 6px;"></sl-spinner>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <!-- ===== TOOLTIP ===== -->
+        <section class="component-section" id="tooltip">
+          <h2>Tooltip</h2>
+          <p>USWDS equivalent: <a href="https://designsystem.digital.gov/components/tooltip/" target="_blank" rel="noopener">Tooltip</a></p>
+          <sl-tooltip content="This additional context helps users understand what the field means.">
+            <sl-button>Hover for tooltip</sl-button>
+          </sl-tooltip>
+          <sl-tooltip content="Placed to the right" placement="right">
+            <sl-button variant="default" style="margin-left: 1rem;">Right</sl-button>
+          </sl-tooltip>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="usa-footer usa-footer--slim">
+      <div class="usa-footer__primary-section">
+        <div class="grid-container">
+          <p>&copy; 2025 MyAgency.gov</p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

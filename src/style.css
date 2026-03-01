@@ -1,0 +1,471 @@
+/* ============================================================
+   style.css — USWDS-inspired custom properties & global styles
+   Uses Shoelace design tokens where possible so everything
+   stays in sync when you retheme Shoelace.
+   ============================================================ */
+
+/* ── USWDS-compatible color tokens ── */
+:root {
+  --usa-blue-60v:     #005ea2;
+  --usa-blue-80:      #1a4480;
+  --usa-red-50v:      #e52207;
+  --usa-gold-20v:     #f2a900;
+  --usa-green-50v:    #008817;
+  --usa-gray-5:       #f0f0f0;
+  --usa-gray-10:      #dfe1e2;
+  --usa-gray-50:      #71767a;
+  --usa-gray-90:      #1b1b1b;
+  --usa-white:        #ffffff;
+
+  /* Map to Shoelace primary color for button / badge / link consistency */
+  --sl-color-primary-600: var(--usa-blue-60v);
+  --sl-color-primary-700: var(--usa-blue-80);
+
+  /* Typography */
+  --usa-font-sans:    'Public Sans', 'Source Sans Pro', -apple-system,
+                      BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+                      Arial, sans-serif;
+  --usa-font-mono:    'Roboto Mono', 'Bitstream Vera Sans Mono', 'Courier',
+                      monospace;
+  --usa-base-font-size: 1rem;
+  --usa-line-height:    1.6;
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--usa-font-sans);
+  font-size: var(--usa-base-font-size);
+  line-height: var(--usa-line-height);
+  color: var(--usa-gray-90);
+  background-color: var(--usa-white);
+}
+
+a {
+  color: var(--usa-blue-60v);
+}
+a:hover {
+  color: var(--usa-blue-80);
+}
+
+code {
+  font-family: var(--usa-font-mono);
+  background: var(--usa-gray-5);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.875em;
+}
+
+/* ── Grid helpers (minimal USWDS grid) ── */
+.grid-container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.grid-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.grid-gap {
+  gap: 1.5rem;
+}
+
+.grid-col-6   { flex: 0 0 calc(50% - 0.75rem); min-width: 0; }
+.grid-col-4   { flex: 0 0 calc(33.333% - 1rem); min-width: 0; }
+.grid-col-auto { flex: 0 1 auto; }
+
+@media (max-width: 640px) {
+  .grid-col-6,
+  .grid-col-4 { flex: 0 0 100%; }
+}
+
+.tablet\:grid-col-4 { flex: 0 0 calc(33.333% - 1rem); min-width: 0; }
+@media (max-width: 768px) {
+  .tablet\:grid-col-4 { flex: 0 0 100%; }
+}
+
+/* ── USA Banner ── */
+.usa-banner {
+  background: var(--usa-gray-5);
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--usa-gray-10);
+}
+
+.usa-banner__inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.5rem;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.usa-banner__inner p {
+  margin: 0;
+  flex: 1;
+}
+
+.usa-banner__content {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 0.75rem 1.5rem 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.usa-banner__content p {
+  margin: 0;
+  font-size: 0.875rem;
+  max-width: 500px;
+}
+
+/* ── Navbar ── */
+.usa-navbar {
+  background-color: var(--usa-blue-60v);
+  color: var(--usa-white);
+}
+
+.usa-navbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.usa-navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--usa-white);
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.usa-nav__primary {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+}
+
+.usa-nav__link {
+  color: var(--usa-white);
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.usa-nav__link:hover,
+.usa-nav__link.usa-current {
+  background-color: var(--usa-blue-80);
+  color: var(--usa-white);
+}
+
+.usa-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--usa-white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .usa-menu-btn { display: block; }
+  .usa-nav__primary {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+  .usa-navbar__menu--open .usa-nav__primary {
+    display: flex;
+  }
+  .usa-navbar__inner { flex-wrap: wrap; }
+}
+
+/* ── Hero ── */
+.usa-hero {
+  background-color: var(--usa-blue-80);
+  color: var(--usa-white);
+  padding: 4rem 1.5rem;
+}
+
+.usa-hero__callout {
+  max-width: 680px;
+  margin-inline: auto;
+}
+
+.usa-hero__heading {
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+.usa-hero__heading--alt {
+  display: block;
+  font-size: 0.7em;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* ── Section ── */
+.usa-section {
+  padding: 3rem 1.5rem;
+}
+
+.usa-section--dark {
+  background-color: var(--usa-gray-5);
+}
+
+/* ── Button (plain HTML fallback, Shoelace sl-button handles the rest) ── */
+.usa-button {
+  display: inline-block;
+  background-color: var(--usa-blue-60v);
+  color: var(--usa-white);
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+  margin-top: 1rem;
+  transition: background-color 0.15s;
+}
+
+.usa-button:hover {
+  background-color: var(--usa-blue-80);
+  color: var(--usa-white);
+}
+
+/* ── Accordion ── */
+sl-details.usa-accordion-item {
+  margin-bottom: 0.5rem;
+}
+
+/* ── Alert (native fallback) ── */
+.usa-alert {
+  padding: 1rem 1rem 1rem 3rem;
+  border-left: 4px solid var(--usa-blue-60v);
+  background: var(--usa-gray-5);
+  position: relative;
+}
+
+.usa-alert--info  { border-color: var(--usa-blue-60v); }
+.usa-alert--error { border-color: var(--usa-red-50v);  }
+.usa-alert__text  { margin: 0; }
+
+/* ── Breadcrumb ── */
+.usa-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.usa-breadcrumb__list-item + .usa-breadcrumb__list-item::before {
+  content: '›';
+  margin-right: 0.25rem;
+  color: var(--usa-gray-50);
+}
+
+.usa-breadcrumb__link {
+  color: var(--usa-blue-60v);
+}
+
+/* ── Table ── */
+.usa-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.usa-table caption {
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.usa-table th {
+  background-color: var(--usa-gray-5);
+  text-align: left;
+  padding: 0.625rem 1rem;
+  border-bottom: 2px solid var(--usa-gray-10);
+}
+
+.usa-table td {
+  padding: 0.625rem 1rem;
+  border-bottom: 1px solid var(--usa-gray-10);
+}
+
+.usa-table--striped tbody tr:nth-child(even) td {
+  background-color: var(--usa-gray-5);
+}
+
+.usa-table-container--scrollable {
+  overflow-x: auto;
+}
+
+/* ── File input ── */
+.usa-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.usa-hint {
+  display: block;
+  color: var(--usa-gray-50);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.usa-file-input {
+  display: block;
+  border: 2px dashed var(--usa-gray-10);
+  border-radius: 4px;
+  padding: 0.75rem;
+  max-width: 400px;
+  cursor: pointer;
+}
+
+.usa-file-input:focus {
+  outline: 3px solid var(--usa-blue-60v);
+  outline-offset: 2px;
+}
+
+/* ── Form intro text ── */
+.usa-intro {
+  font-size: 1.125rem;
+  max-width: 720px;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Component section spacing ── */
+.component-section {
+  margin-bottom: 2rem;
+}
+
+.component-section h2 {
+  margin-top: 1.5rem;
+}
+
+/* ── Button row helper ── */
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* ── Card grid ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+sl-card.usa-card {
+  --border-color: var(--usa-gray-10);
+}
+
+/* ── Footer ── */
+.usa-footer {
+  background-color: var(--usa-gray-5);
+  border-top: 1px solid var(--usa-gray-10);
+  margin-top: 3rem;
+}
+
+.usa-footer__return-to-top {
+  padding: 0.75rem 1.5rem;
+  text-align: right;
+  font-size: 0.875rem;
+}
+
+.usa-footer__primary-section {
+  padding: 2rem 1.5rem;
+}
+
+.usa-footer__secondary-section {
+  background-color: var(--usa-gray-10);
+  padding: 1rem 1.5rem;
+  font-size: 0.875rem;
+  color: var(--usa-gray-50);
+}
+
+.usa-footer__nav .grid-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.usa-footer__primary-link {
+  color: var(--usa-blue-60v);
+  font-weight: 600;
+}
+
+/* ── htmx loading indicator ── */
+.htmx-indicator {
+  display: none;
+}
+
+.htmx-request .htmx-indicator,
+.htmx-request.htmx-indicator {
+  display: inline-block;
+}
+
+/* ── Progress bars ── */
+sl-progress-bar {
+  margin-bottom: 0.25rem;
+}
+
+/* ── Shoelace form spacing ── */
+sl-input,
+sl-select,
+sl-textarea,
+sl-checkbox,
+sl-radio-group {
+  display: block;
+}
+
+/* ── Skip navigation (accessibility) ── */
+.usa-skipnav {
+  position: absolute;
+  left: -9999em;
+  top: 0;
+  z-index: 100;
+  background: var(--usa-blue-60v);
+  color: var(--usa-white);
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+}
+
+.usa-skipnav:focus {
+  left: 0;
+}
