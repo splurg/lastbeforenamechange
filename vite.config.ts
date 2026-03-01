@@ -19,6 +19,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         components: resolve(__dirname, 'components.html'),
         forms: resolve(__dirname, 'forms.html'),
+        kitchenSink: resolve(__dirname, 'kitchen-sink.html'),
       },
     },
   },

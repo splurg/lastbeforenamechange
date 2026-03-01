@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Site | Kitchen Sink</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="usa-skipnav">Skip to main content</a>
+
+    <header class="site-header">
+      <nav class="usa-navbar" aria-label="Primary navigation">
+        <div class="usa-navbar__inner">
+          <a href="/" class="usa-navbar__brand">
+            <sl-icon name="building-fill"></sl-icon>
+            <span>MyAgency.gov</span>
+          </a>
+          <button
+            class="usa-menu-btn"
+            aria-label="Open navigation menu"
+            _="on click toggle .usa-navbar__menu--open on #primary-nav"
+          >
+            <sl-icon name="list"></sl-icon>
+          </button>
+          <ul id="primary-nav" class="usa-nav__primary" role="list">
+            <li><a href="/" class="usa-nav__link">Home</a></li>
+            <li><a href="/components.html" class="usa-nav__link">Components</a></li>
+            <li><a href="/forms.html" class="usa-nav__link">Forms Demo</a></li>
+            <li><a href="/kitchen-sink.html" class="usa-nav__link usa-current">Kitchen Sink</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <div class="grid-container" style="padding-top: 2rem; padding-bottom: 4rem;">
+        <h1>Kitchen Sink: Full Usable Component Inventory</h1>
+        <p class="usa-intro">
+          This page exercises every Shoelace component currently registered in <code>src/main.ts</code>, plus semantic USWDS-style fallback patterns used in this project.
+        </p>
+
+        <section class="component-section" id="ada-tooling">
+          <h2>ADA/WCAG tooling for this page</h2>
+          <p>Run these tools against this URL while developing and in preview builds.</p>
+          <ul>
+            <li><a href="https://developer.chrome.com/docs/lighthouse/accessibility/" target="_blank" rel="noopener">Lighthouse accessibility audit</a> (Chrome DevTools)</li>
+            <li><a href="https://www.deque.com/axe/devtools/" target="_blank" rel="noopener">axe DevTools</a> for automated WCAG checks</li>
+            <li><a href="https://wave.webaim.org/" target="_blank" rel="noopener">WAVE</a> for visual accessibility feedback</li>
+            <li><a href="https://www.tpgi.com/color-contrast-checker/" target="_blank" rel="noopener">Color Contrast Checker</a> for text/background ratios</li>
+            <li><a href="https://www.w3.org/WAI/test-evaluate/" target="_blank" rel="noopener">WAI manual test guidance</a> for keyboard and screen reader checks</li>
+          </ul>
+          <div class="usa-alert usa-alert--info" aria-live="polite" style="margin-top: 1rem;">
+            <p class="usa-alert__text"><strong>Manual checks:</strong> tab through all controls, verify visible focus, confirm dialog focus trap/return, and validate all form labels and error text are announced.</p>
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <section class="component-section" id="alerts">
+          <h2>sl-alert</h2>
+          <sl-alert variant="primary" open>
+            <sl-icon slot="icon" name="info-circle"></sl-icon>
+            Primary alert
+          </sl-alert>
+          <sl-alert variant="success" open>
+            <sl-icon slot="icon" name="check2-circle"></sl-icon>
+            Success alert
+          </sl-alert>
+          <sl-alert variant="warning" open>
+            <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
+            Warning alert
+          </sl-alert>
+          <sl-alert variant="danger" closable open>
+            <sl-icon slot="icon" name="exclamation-octagon"></sl-icon>
+            Dismissible danger alert
+          </sl-alert>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <section class="component-section" id="buttons-badges-tags-icons">
+          <h2>sl-button, sl-badge, sl-tag, sl-icon</h2>
+          <div class="button-row">
+            <sl-button variant="primary">Primary</sl-button>
+            <sl-button variant="default">Default</sl-button>
+            <sl-button variant="success">Success</sl-button>
+            <sl-button variant="warning">Warning</sl-button>
+            <sl-button variant="danger">Danger</sl-button>
+            <sl-button variant="text">Text</sl-button>
+          </div>
+          <div class="button-row" style="margin-top: 0.75rem;">
+            <sl-badge variant="primary">Primary badge</sl-badge>
+            <sl-badge variant="success">Success badge</sl-badge>
+            <sl-tag variant="neutral" removable>Removable tag</sl-tag>
+            <sl-icon name="palette2" style="font-size: 1.5rem;"></sl-icon>
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <section class="component-section" id="details-cards-skeleton">
+          <h2>sl-details, sl-card, sl-skeleton</h2>
+          <sl-details summary="Accordion row" class="usa-accordion-item">
+            Details content for keyboard and screen-reader testing.
+          </sl-details>
+
+          <div class="card-grid" style="margin-top: 1rem;">
+            <sl-card class="usa-card">
+              <strong slot="header">Static card</strong>
+              <p>Card body text with footer actions.</p>
+              <div slot="footer">
+                <sl-button size="small" variant="primary">Action</sl-button>
+              </div>
+            </sl-card>
+
+            <sl-card class="usa-card">
+              <strong slot="header">Lazy card (htmx)</strong>
+              <div hx-get="/api/card-content.html" hx-trigger="intersect once" hx-swap="innerHTML">
+                <sl-skeleton effect="sheen"></sl-skeleton>
+                <sl-skeleton effect="sheen" style="width: 75%;"></sl-skeleton>
+              </div>
+            </sl-card>
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <section class="component-section" id="inputs-select-textarea-checkbox-radio-option">
+          <h2>sl-input, sl-select/sl-option, sl-textarea, sl-checkbox, sl-radio-group/sl-radio</h2>
+          <form style="max-width: 560px;" _="on submit halt the event">
+            <sl-input label="Full name" name="full_name" required></sl-input>
+            <sl-input label="Email" name="email" type="email" required style="margin-top: 1rem;"></sl-input>
+
+            <sl-select label="Subject" name="subject" placeholder="Pick one" style="margin-top: 1rem;">
+              <sl-option value="general">General</sl-option>
+              <sl-option value="support">Support</sl-option>
+              <sl-option value="accessibility">Accessibility</sl-option>
+            </sl-select>
+
+            <sl-textarea label="Message" rows="4" maxlength="500" style="margin-top: 1rem;"></sl-textarea>
+
+            <sl-checkbox style="margin-top: 1rem;">I agree to the terms</sl-checkbox>
+
+            <sl-radio-group label="Preferred contact" name="pref" value="email" style="margin-top: 1rem;">
+              <sl-radio value="email">Email</sl-radio>
+              <sl-radio value="phone">Phone</sl-radio>
+              <sl-radio value="mail">Mail</sl-radio>
+            </sl-radio-group>
+          </form>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <section class="component-section" id="progress-spinner-tooltip">
+          <h2>sl-progress-bar, sl-spinner, sl-tooltip</h2>
+          <sl-progress-bar value="25" label="Step 1 of 4"></sl-progress-bar>
+          <sl-progress-bar value="50" label="Step 2 of 4" style="margin-top: 0.75rem;"></sl-progress-bar>
+          <div class="button-row" style="margin-top: 1rem;">
+            <sl-spinner style="font-size: 1.5rem;"></sl-spinner>
+            <sl-spinner style="font-size: 2rem; --track-width: 6px;"></sl-spinner>
+            <sl-tooltip content="Tooltip content example">
+              <sl-button>Hover for tooltip</sl-button>
+            </sl-tooltip>
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <section class="component-section" id="tabs-dialog-divider">
+          <h2>sl-tab-group/sl-tab/sl-tab-panel, sl-dialog, sl-divider</h2>
+          <sl-tab-group>
+            <sl-tab slot="nav" panel="one">One</sl-tab>
+            <sl-tab slot="nav" panel="two">Two</sl-tab>
+            <sl-tab-panel name="one">First tab panel.</sl-tab-panel>
+            <sl-tab-panel name="two">Second tab panel.</sl-tab-panel>
+          </sl-tab-group>
+
+          <div style="margin-top: 1rem;">
+            <sl-button variant="primary" _="on click call #sink-dialog.show()">Open dialog</sl-button>
+            <sl-dialog id="sink-dialog" label="Dialog example">
+              <p>Focus should move into this dialog and return on close.</p>
+              <div slot="footer">
+                <sl-button variant="primary" _="on click call #sink-dialog.hide()">Close</sl-button>
+              </div>
+            </sl-dialog>
+          </div>
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <section class="component-section" id="semantic-fallbacks">
+          <h2>Semantic fallback patterns used in this project</h2>
+          <nav aria-label="Breadcrumb" class="usa-breadcrumb">
+            <ol class="usa-breadcrumb__list" role="list">
+              <li class="usa-breadcrumb__list-item"><a href="/" class="usa-breadcrumb__link">Home</a></li>
+              <li class="usa-breadcrumb__list-item usa-current" aria-current="page">Kitchen Sink</li>
+            </ol>
+          </nav>
+
+          <div class="usa-table-container--scrollable" tabindex="0" style="margin-top: 1rem;">
+            <table class="usa-table usa-table--striped">
+              <caption>Sample table</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Component</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Shoelace registry</td>
+                  <td><sl-badge variant="success">Loaded</sl-badge></td>
+                </tr>
+                <tr>
+                  <td>htmx fragment fetch</td>
+                  <td><sl-badge variant="primary">Available</sl-badge></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <label class="usa-label" for="sink-file">File upload</label>
+          <span class="usa-hint" id="sink-file-hint">Accepted: PDF, DOC, DOCX</span>
+          <input id="sink-file" class="usa-file-input" type="file" aria-describedby="sink-file-hint" />
+        </section>
+
+        <sl-divider></sl-divider>
+
+        <section class="component-section" id="htmx-indicator-demo">
+          <h2>htmx + indicator + live region</h2>
+          <p>Demonstrates loading and announcement behavior.</p>
+          <sl-button
+            variant="primary"
+            hx-get="/api/greeting.html"
+            hx-target="#sink-greeting-output"
+            hx-swap="innerHTML"
+            hx-indicator="#sink-spinner"
+          >
+            Load greeting fragment
+          </sl-button>
+          <sl-spinner id="sink-spinner" class="htmx-indicator" style="font-size: 1.5rem; margin-left: 1rem;"></sl-spinner>
+          <div id="sink-greeting-output" class="usa-alert usa-alert--info" aria-live="polite" style="margin-top: 1rem;">
+            <p class="usa-alert__text">Result will render here.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="usa-footer usa-footer--slim">
+      <div class="usa-footer__primary-section">
+        <div class="grid-container">
+          <p>&copy; 2025 MyAgency.gov</p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
