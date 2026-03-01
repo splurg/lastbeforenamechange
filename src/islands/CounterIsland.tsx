@@ -17,7 +17,7 @@ interface CounterProps {
 
 export default function CounterIsland({ start = 0, label = 'Count' }: CounterProps) {
   const [count, setCount] = useState(start);
-  const step = count >= 0 ? 1 : -1;
+  const direction = count > start ? 'above' : 'below';
 
   return (
     <div class="island-counter" role="group" aria-label={label}>
@@ -51,7 +51,7 @@ export default function CounterIsland({ start = 0, label = 'Count' }: CounterPro
       {count !== start && (
         <p class="island-counter__delta" aria-live="polite">
           {Math.abs(count - start)} step{Math.abs(count - start) !== 1 ? 's' : ''}{' '}
-          {step > 0 ? 'above' : 'below'} start
+          {direction} start
         </p>
       )}
     </div>
