@@ -20,6 +20,10 @@
  *  3. Load hyperscript so _="…" attributes work on all elements.
  */
 
+// ─── Color scheme preference (restore before any paint) ─────────────────────
+import { restoreSavedScheme } from './theme.js';
+restoreSavedScheme();
+
 // ─── Shoelace ────────────────────────────────────────────────────────────────
 import '@shoelace-style/shoelace/dist/themes/light.css';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
