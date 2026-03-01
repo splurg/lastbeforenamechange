@@ -67,7 +67,8 @@ The following [USWDS components](https://designsystem.digital.gov/components/ove
 .
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml          # Build + FTP deploy on push to main
+│       ├── deploy.yml          # Build + FTP deploy on push to main
+│       └── test.yml            # Unit tests + E2E smoke tests (push & PRs)
 ├── public/
 │   └── api/                    # Static htmx fragment stubs (replace with real API)
 │       ├── greeting.html
@@ -76,10 +77,16 @@ The following [USWDS components](https://designsystem.digital.gov/components/ove
 │   ├── main.ts                 # Registers Shoelace, htmx, hyperscript
 │   ├── style.css               # USWDS-inspired custom properties & layout
 │   └── vite-env.d.ts
+├── tests/
+│   ├── unit/
+│   │   └── api.test.ts         # Vitest unit tests for API fragment content
+│   └── e2e/
+│       └── smoke.spec.ts       # Playwright smoke tests (page loads, API responses)
 ├── index.html                  # Home page
 ├── components.html             # Component showcase
 ├── forms.html                  # Forms demo
-├── vite.config.ts
+├── playwright.config.ts        # Playwright E2E configuration
+├── vite.config.ts              # Vite build config (also used by Vitest)
 ├── tsconfig.json
 └── package.json
 ```
@@ -121,14 +128,78 @@ npm run preview
 
 ---
 
-## Deployment via GitHub Actions
+## Testing
 
-The workflow at `.github/workflows/deploy.yml` triggers on every push to `main` and:
+The project includes two kinds of tests, each with its own npm script and GitHub Actions workflow.
 
-1. Runs `npm ci` and `npm run build`
-2. Uploads the `dist/` folder to your FTP server using [SamKirkland/FTP-Deploy-Action](https://github.com/SamKirkland/FTP-Deploy-Action)
+### Unit tests (Vitest)
 
-### Required repository secrets
+Unit tests live in `tests/unit/` and run entirely in Node — no browser needed.
+They validate the content of the static API fragment stubs and any TypeScript utilities.
+
+```bash
+npm test          # run once
+npm run test:watch # watch mode during development
+```
+
+### E2E / smoke tests (Playwright)
+
+End-to-end tests live in `tests/e2e/` and use Playwright to drive a real Chromium
+browser against the built site served by `vite preview`.
+
+```bash
+npm run build       # required before first run
+npm run test:e2e    # run headless
+npm run test:e2e:ui # open Playwright UI explorer
+```
+
+The Playwright configuration is in `playwright.config.ts`. By default only Chromium
+is enabled; add `firefox` and `webkit` entries under `projects` when you need
+cross-browser coverage.
+
+---
+
+## GitHub Actions workflows
+
+The repository ships with **two independent workflows** so that a failing test never
+blocks a deployment and vice versa.
+
+| Workflow file | Purpose | Triggers |
+|---------------|---------|----------|
+| `.github/workflows/test.yml` | Unit tests + E2E smoke tests | Push / PR to `main` |
+| `.github/workflows/deploy.yml` | Build + FTP deploy | Push to `main` |
+
+Both workflows run in parallel on every push to `main`.  On pull requests only the
+**test** workflow runs (deploy is skipped because it requires FTP secrets that are
+only available on the default branch).
+
+### Viewing workflow results
+
+Go to the **Actions** tab of your repository. Each push will show two separate
+workflow runs — one labelled **Test** and one labelled **Build and Deploy to FTP**.
+Click any run to expand its jobs and see step-by-step logs.
+
+### Controlling concurrency (optional)
+
+If you want to ensure only one deploy runs at a time add a `concurrency` block to
+`deploy.yml`:
+
+```yaml
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false   # wait for the previous deploy to finish
+```
+
+For the test workflow you may prefer `cancel-in-progress: true` to skip stale runs
+when you push multiple commits in quick succession:
+
+```yaml
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+```
+
+### Required secrets for deploy
 
 Go to **Settings → Secrets and variables → Actions** and add:
 
