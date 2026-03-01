@@ -7,9 +7,11 @@
   Maintainer: dev-team@example.gov
   Created: 2026-03-01
   Notes: `vite-plugin-static-copy` copies Shoelace assets to `dist/shoelace` for production.
+         `test` block configures Vitest for unit tests in tests/unit/.
   ------------------------------------------------------------------
 */
 
+/// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
@@ -34,5 +36,9 @@ export default defineConfig({
         kitchenSink: resolve(__dirname, 'kitchen-sink.html'),
       },
     },
+  },
+  test: {
+    environment: 'node',
+    include: ['tests/unit/**/*.test.ts'],
   },
 });
