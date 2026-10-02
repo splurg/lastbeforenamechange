@@ -140,6 +140,10 @@ code {
   flex-wrap: wrap;
 }
 
+.usa-banner__content[hidden] {
+  display: none;
+}
+
 .usa-banner__content p {
   margin: 0;
   font-size: 0.875rem;

@@ -67,3 +67,12 @@ import htmx from 'htmx.org';
 // hyperscript ships as a plain script — importing the ESM entry activates
 // the global `_hyperscript` runtime and processes all _="…" attributes.
 import 'hyperscript.org';
+
+const bannerToggle = document.querySelector<HTMLElement>('#banner-toggle');
+const bannerContent = document.querySelector<HTMLElement>('#banner-content');
+
+bannerToggle?.addEventListener('click', () => {
+	const isExpanded = bannerToggle.getAttribute('aria-expanded') === 'true';
+	bannerContent?.toggleAttribute('hidden', isExpanded);
+	bannerToggle.setAttribute('aria-expanded', String(!isExpanded));
+});

@@ -31,16 +31,12 @@
             size="small"
             id="banner-toggle"
             aria-expanded="false"
-            _="on click toggle .is-open on #banner-content
-               then if @aria-expanded is 'false' set @aria-expanded to 'true'
-               else set @aria-expanded to 'false'"
           >
             Here's how you know
             <sl-icon slot="suffix" name="chevron-down"></sl-icon>
           </sl-button>
         </div>
-        <div id="banner-content" class="usa-banner__content" hidden
-          _="on click(target) if target.closest('#banner-toggle') remove @hidden from me">
+        <div id="banner-content" class="usa-banner__content" hidden>
           <sl-icon name="lock-fill"></sl-icon>
           <p>
             <strong>Official websites use .gov</strong> — A <strong>.gov</strong>
